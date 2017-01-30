@@ -1,0 +1,10 @@
+.DS_Store
+Icon
+._*
+.Spotlight-V100
+.Trashes
+.*.sw[a-z]
+*.un~
+Session.vim
+.netrwhist
+bundle
