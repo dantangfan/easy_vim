@@ -1,9 +1,22 @@
-source ~/.vim/bundles.vim
-set tags+=/Users/huangjin/CtagsSRC/elixir/lib/tags
-" 全局设定
-"""""""""""""""""""""
-" 定义快捷键的前缀，即<Leader>
-let mapleader=";"
+使用过其他一些 vim
+配置，但实际上，如果不是自己配置的，很难能掌握各种插件的用法和各种快捷键操作。所以，干脆还是抽时间自己把需要的配置都简单的罗列出来，方便自己查找。
+
+## 基本配置
+
+### <leader> 键
+
+<leader> 键，也就是前缀建，实际上，如果你觉得你的快捷键够用的话，这个是可以不需要的。为了方便，我将前缀建设置成了分号，这样，我们不用移动手指就能按到
+
+```
+" 定义快捷键的前缀<Leader>
+let mapleader=";
+```
+
+### 文件类型侦测
+
+包括编码检测，文件类型检测（使得对应的文件可以加载对应的插件和语法高亮等）等等
+
+```
 " 编码检测
 set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
 " 开启文件类型侦测
@@ -12,20 +25,18 @@ filetype on
 filetype plugin indent on
 " 语法高亮、补全
 syntax on
+```
 
+### 基本UI配置，包括高亮，缩进等
 
-""""""""""""""
-" Vim UI
-""""""""""""""
+```
 " color scheme
 set background=dark
-color vividchalk
-
+" color vividchalk
 " 高亮当前行
 au WinLeave * set nocursorline nocursorcolumn
 au WinEnter * set cursorline cursorcolumn
 set cursorline cursorcolumn
-
 " 编辑器设定
 set history=1000
 set nocompatible
@@ -45,7 +56,6 @@ set laststatus=2                                                  " use 2 lines 
 set matchtime=2                                                   " show matching bracket for 0.2 seconds
 set matchpairs+=<:>                                               " specially for html
 " set relativenumber
-
 " 默认缩进
 set autoindent
 set smartindent     " indent when
@@ -55,24 +65,22 @@ set shiftwidth=4    " indent width
 set textwidth=80
 set smarttab
 set expandtab       " expand tab to space
-
 " 特定文件缩进
 autocmd FileType php,ruby,sass,scss,css,coffee,javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
 autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4 textwidth=120
 autocmd FileType html,htmldjango,xhtml,haml setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=0
 autocmd FileType elixir,ex,exs setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
-
 " syntax support
 autocmd Syntax javascript set syntax=jquery   " JQuery syntax support
 " js
 let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
+```
 
+### 基本快捷键设置
 
-"""""""""""""""""""""""""""""""""""
-" 基本快捷键
-"""""""""""""""""""""""""""""""""""
+```
 " 定义快捷键到行首和行尾
 nmap LB 0
 nmap LE $
@@ -92,7 +100,7 @@ nmap <Leader>Q :qa!<CR>
 nnoremap nw <C-W><C-W>
 " 定义快捷键在结对符之间跳转
 nmap <Leader>M %
-
+"
 " 跳转至右方的窗口
 " nnoremap <Leader>lw <C-W>l
 " 跳转至左方的窗口
@@ -106,7 +114,7 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
-
+"
 " When editing a file, always jump to the last cursor position
 autocmd BufReadPost *
       \ if ! exists("g:leave_my_cursor_position_alone") |
@@ -117,11 +125,9 @@ autocmd BufReadPost *
 
 " w!! to sudo & write a file
 cmap w!! %!sudo tee >/dev/null %
-
 " 快速重新加载 vimrc 文件
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
-
 " for macvim(GUI)
 " 只对 gvim 有效
 if has("gui_running")
@@ -144,11 +150,11 @@ if has("gui_running")
     map <D-9> 9gt
     map <D-0> :tablast<CR>
 endif
+```
 
+### 基本搜索
 
-"""""""""""""""""""""""
-" 基本搜索功能
-"""""""""""""""""""""""
+```
 " 开启实时搜索功能
 set incsearch
 " 搜索时大小写不敏感
@@ -158,174 +164,11 @@ set nocompatible
 " vim 自身命令行模式智能补全
 set wildmenu
 set smartcase
+```
 
+### 快速运行
 
-""""""""""""""""""""""
-" 插件设置
-""""""""""""""""""""""
-" tabbar
-let g:Tb_MaxSize = 2
-let g:Tb_TabWrap = 1
-
-hi Tb_Normal guifg=white ctermfg=white
-hi Tb_Changed guifg=green ctermfg=green
-hi Tb_VisibleNormal ctermbg=252 ctermfg=235
-hi Tb_VisibleChanged guifg=green ctermbg=252 ctermfg=white
-
-" easy-motion
-let g:EasyMotion_leader_key = '<Leader>'
-
-" Tagbar
-let g:tagbar_left=1
-let g:tagbar_width=30
-let g:tagbar_autofocus = 1
-let g:tagbar_sort = 0
-let g:tagbar_compact = 1
-
-" Nerd Tree
-let NERDChristmasTree=0
-let NERDTreeWinSize=30
-let NERDTreeChDirMode=2
-let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
-let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$',  '\~$']
-let NERDTreeShowBookmarks=1
-let NERDTreeWinPos = "right"
-
-" nerdcommenter
-let NERDSpaceDelims=1
-" nmap <D-/> :NERDComToggleComment<cr>
-let NERDCompactSexyComs=1
-
-" ZenCoding
-let g:user_emmet_expandabbr_key='<C-j>'
-
-" Tagbar
-let g:tagbar_left=1
-let g:tagbar_width=30
-let g:tagbar_autofocus = 1
-let g:tagbar_sort = 0
-let g:tagbar_compact = 1
-
-" Nerd Tree
-let NERDChristmasTree=0
-let NERDTreeWinSize=30
-let NERDTreeChDirMode=2
-let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
-" let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$',  '\~$']
-let NERDTreeShowBookmarks=1
-let NERDTreeWinPos = "right"
-
-" nerdcommenter
-let NERDSpaceDelims=1
-" nmap <D-/> :NERDComToggleComment<cr>
-let NERDCompactSexyComs=1
-
-" ZenCoding
-let g:user_emmet_expandabbr_key='<C-j>'
-
-" NeoComplCache
-let g:neocomplcache_enable_at_startup=1
-let g:neoComplcache_disableautocomplete=1
-"let g:neocomplcache_enable_underbar_completion = 1
-"let g:neocomplcache_enable_camel_case_completion = 1
-let g:neocomplcache_enable_smart_case=1
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-set completeopt-=preview
-
-imap <C-k> <Plug>(neocomplcache_snippets_force_expand)
-smap <C-k> <Plug>(neocomplcache_snippets_force_expand)
-imap <C-l> <Plug>(neocomplcache_snippets_force_jump)
-smap <C-l> <Plug>(neocomplcache_snippets_force_jump)
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType c setlocal omnifunc=ccomplete#Complete
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns.erlang = '[a-zA-Z]\|:'
-
-" SuperTab
-let g:SuperTabDefultCompletionType='context'
-let g:SuperTabDefaultCompletionType = '<C-X><C-U>'
-let g:SuperTabRetainCompletionType=2
-
-" ctrlp
-set wildignore+=*/tmp/*,*.so,*.o,*.a,*.obj,*.swp,*.zip,*.pyc,*.pyo,*.class,.DS_Store  " MacOSX/Linux
-let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
-
-" Keybindings for plugin toggle
-nnoremap <F2> :set invpaste paste?<CR>
-set pastetoggle=<F2>
-nmap <F5> :TagbarToggle<cr>
-nmap <F6> :NERDTreeToggle<cr>
-nmap <F3> :GundoToggle<cr>
-nmap <F4> :IndentGuidesToggle<cr>
-nmap  <D-/> :
-nnoremap <leader>a :Ack
-nnoremap <leader>v V`]
-
-
-"------------------
-" syntastic
-"------------------
-
-" elixir
-au BufNewFile,BufRead *.exs set ft=elixir
-let g:tagbar_type_elixir = {'ctagstype': 'elixir', 'kinds': ['f:functions:0:0', 'c:callbacks:0:0', 'd:delegates:0:0', 'e:exceptions:0:0', 'i:implementations:0:0', 'a:macros:0:0', 'o:operators:0:0', 'm:modules:0:0', 'p:protocols:0:0', 'r:records:0:0'], 'sro': '.', 'kind2scope': {'m': 'modules'}, 'scope2kind': {'modules': 'm'}}
-
-" js
-let g:syntastic_javascript_checkers=['eslint']
-let g:syntastic_javascript_eslint_exec = 'eslint'
-
-" 多语言语法检查
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-" 检测到错误和警告时的标志
-let g:syntastic_error_symbol='✘✘'
-let g:syntastic_warning_symbol='➤➤'
-let g:syntastic_check_on_open=1
-let g:syntastic_check_on_wq=0
-let g:syntastic_enable_highlighting=1
-
-" 使用pyflakes,速度比pylint快
-" 需要安装 pep8 或者 pyflakes，使用pip安装，pep8是python的格式检测神器，建议安装。
-let g:syntastic_python_checkers=['pep8', 'pyflakes']
-let g:syntastic_python_pep8_args='--ignore=E501,E225'
-
-" 修改高亮的背景色, 适应主题
-highlight SyntasticErrorSign guifg=white guibg=black
-" to see error location list
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_loc_list_height = 5
-function! ToggleErrors()
-    let old_last_winnr = winnr('$')
-    lclose
-    if old_last_winnr == winnr('$')
-        " Nothing was closed, open syntastic error location panel
-        Errors
-    endif
-endfunction
-nnoremap <Leader>s :call ToggleErrors()<cr>
-
-" 跳转到下一个/上一个错误处
-nnoremap <Leader>sn :lnext<cr>
-nnoremap <Leader>sp :lprevious<cr>
-
-" 关闭 某一语言的（如C/C++） 的语法检测
-" let g:syntastic_ignore_files=[".*\.c$", ".*\.h$", ".*\.cpp", ".*\.hpp"]
-
-
-""""""""""""""""""""""
-" 快速运行，这样太暴力，不爽
-""""""""""""""""""""""
+```
 map <F8> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
     exec "w"
@@ -352,3 +195,6 @@ func! CompileRunGcc()
         exec "!firefox %.html &"
     endif
 endfunc
+```
+
+## 插件管理
