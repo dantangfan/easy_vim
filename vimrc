@@ -1,4 +1,5 @@
 source ~/.vim/bundles.vim
+set tags+=/Users/huangjin/CtagsSRC/elixir/lib/tags
 " 全局设定
 """""""""""""""""""""
 " 定义快捷键的前缀，即<Leader>
